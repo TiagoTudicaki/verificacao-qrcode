@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerar pickup — Verificação QR</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="tag-header">
+    <div>
+      <div class="brand">VERIFICAÇÃO-QRCODE</div>
+      <h1>Gerar retirada</h1>
+    </div>
+    <nav>
+      <a href="verify.html">Verificar retirada →</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="punchcard">
+      <div class="field">
+        <label for="orderNumber">Número da ordem de serviço</label>
+        <input type="text" id="orderNumber" inputmode="numeric" placeholder="Ex: 24900" autocomplete="off">
+        <div class="hint">A OS já deve existir no sistema principal — aqui só é gerado o par de códigos para a retirada.</div>
+      </div>
+
+      <button class="primary" id="generateBtn" type="button">Gerar códigos</button>
+      <div class="status-line" id="statusLine"></div>
+
+      <div class="qr-pair" id="qrPair" hidden>
+        <div class="qr-slot">
+          <div class="slot-label">Código do cliente</div>
+          <img id="clientQr" alt="QR code do cliente">
+          <div class="slot-caption">Envie por foto ou mostre na tela ao cliente</div>
+        </div>
+        <div class="qr-slot">
+          <div class="slot-label">Código do equipamento</div>
+          <img id="equipmentQr" alt="QR code do equipamento">
+          <div class="slot-caption">Imprima e cole no aparelho</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="create.js"></script>
+</body>
+</html>

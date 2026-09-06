@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificar retirada — Verificação QR</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="tag-header">
+    <div>
+      <div class="brand">VERIFICAÇÃO-QRCODE</div>
+      <h1>Verificar retirada</h1>
+    </div>
+    <nav>
+      <a href="index.html">← Gerar retirada</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="punchcard">
+      <div class="steps">
+        <div class="step-dot" id="dot1"></div>
+        <div class="step-dot" id="dot2"></div>
+        <div class="step-dot" id="dot3"></div>
+      </div>
+
+      <div id="scanArea" class="scan-stage">
+        <div class="stage-label" id="stageLabel">Escaneie o código do cliente</div>
+        <div id="reader"></div>
+        <div class="captured-token" id="capturedInfo"></div>
+      </div>
+
+      <div id="resultArea" class="result-panel" hidden>
+        <span class="icon" id="resultIcon"></span>
+        <h2 id="resultTitle"></h2>
+        <p id="resultMessage"></p>
+        <button class="ghost" id="restartBtn" type="button">Verificar outra retirada</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+  <script src="verify.js"></script>
+</body>
+</html>
