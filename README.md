@@ -91,6 +91,35 @@ node server.js
 
 O servidor sobe em `http://localhost:3000`, servindo tanto a API quanto o front-end (`http://localhost:3000` para gerar um pickup, `http://localhost:3000/verify.html` para verificar uma retirada).
 
+## Estrutura de pastas
+
+```
+verificacao-qrcode/
+├── app.js                  # Configuração do Express e montagem das rotas
+├── server.js                # Ponto de entrada, inicia o servidor
+├── src/
+│   ├── back/
+│   │   ├── config/
+│   │   │   └── database.js  # Conexão com o MySQL
+│   │   ├── controllers/
+│   │   │   └── pickupController.js
+│   │   ├── services/
+│   │   │   └── pickupService.js
+│   │   ├── models/
+│   │   │   └── pickupModel.js
+│   │   └── routes/
+│   │       └── pickupRoute.js
+│   └── front/
+│       └── public/
+│           ├── index.html   # Tela de geração dos QR codes
+│           ├── verify.html  # Tela de verificação de retirada
+│           ├── style.css
+│           ├── create.js
+│           └── verify.js
+├── .env.example
+└── README.md
+```
+
 ## Endpoints da API
 
 ### Gerar pickup
