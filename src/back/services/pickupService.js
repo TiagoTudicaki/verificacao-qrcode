@@ -2,6 +2,7 @@ const pickupModel = require("../models/pickupModel");
 const { v4: uuidv4} = require("uuid");
 const qrcode = require("qrcode");
 
+
 const pickupService = {
     async create(orderNumber){
         
@@ -29,9 +30,29 @@ const pickupService = {
         return {clientQrCode, equipmentQrCode};
         
 
-        
+    },
 
-    }
+    async verify(clientToken, equipmentToken){
+        const pickup = await pickupModel.verify(clientToken, equipmentToken);
+
+        if(pickup === undefined){
+            const erro = new Error("Tokens inválidos");
+            throw erro;
+        }
+
+        if(pickup.status === "confirmed"){
+            const erro = new Error("Aparelho já foi retirado");
+            throw erro;
+        }
+        
+        const id = pickup.id;
+        const newStatus = "confirmed";
+        const checkedAt = new Date();
+        const confirmationMethod = "qrcode";
+
+        const result = await pickupModel.update(id, newStatus, checkedAt, confirmationMethod);
+        return result
 }
 
+}
 module.exports = pickupService;
