@@ -33,3 +33,5 @@ const pickupService = {
 
     }
 }
+
+module.exports = pickupService;
