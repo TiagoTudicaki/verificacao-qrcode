@@ -8,14 +8,14 @@ const pickupController = {
         throw erro;
       }
 
-      const { orderNumber, equipment_type, equipment_brand, equipment_color } =
+      const { orderNumber, equipmentType, equipmentBrand, equipmentColor } =
         req.body;
 
       const newPickup = await pickupService.create(
         orderNumber,
-        equipment_type,
-        equipment_brand,
-        equipment_color,
+        equipmentType,
+        equipmentBrand,
+        equipmentColor,
       );
       return res.status(201).json(newPickup);
     } catch (erro) {
