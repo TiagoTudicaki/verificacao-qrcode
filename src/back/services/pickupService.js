@@ -48,6 +48,7 @@ const pickupService = {
     const equipmentToken = uuidv4();
 
     const clientQrContent = JSON.stringify({
+      order: orderNumber,
       token: clientToken,
       type: equipmentType,
       brand: equipmentBrand,
