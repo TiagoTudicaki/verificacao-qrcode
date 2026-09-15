@@ -65,7 +65,7 @@ async function onCodigoLido(textoDecodificado) {
 
     scanArea.hidden = true;
     clientInfoText.textContent =
-      dadosCliente.type + " — " + dadosCliente.brand + " — " + dadosCliente.color;
+     dadosCliente.order + " " + dadosCliente.type + " " + dadosCliente.brand + " " + dadosCliente.color;
     clientInfoPanel.hidden = false;
     return;
   }
