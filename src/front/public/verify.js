@@ -4,6 +4,9 @@ const dot3 = document.getElementById("dot3");
 const stageLabel = document.getElementById("stageLabel");
 const capturedInfo = document.getElementById("capturedInfo");
 const scanArea = document.getElementById("scanArea");
+const clientInfoPanel = document.getElementById("clientInfoPanel");
+const clientInfoText = document.getElementById("clientInfoText");
+const continueBtn = document.getElementById("continueBtn");
 const resultArea = document.getElementById("resultArea");
 const resultIcon = document.getElementById("resultIcon");
 const resultTitle = document.getElementById("resultTitle");
@@ -59,11 +62,11 @@ async function onCodigoLido(textoDecodificado) {
 
     clientToken = dadosCliente.token;
     await pararLeitura();
-    marcarPasso(2);
-    stageLabel.textContent = "Agora escaneie o código do equipamento";
-    capturedInfo.textContent =
+
+    scanArea.hidden = true;
+    clientInfoText.textContent =
       dadosCliente.type + " — " + dadosCliente.brand + " — " + dadosCliente.color;
-    iniciarLeitura();
+    clientInfoPanel.hidden = false;
     return;
   }
 
@@ -75,6 +78,14 @@ async function onCodigoLido(textoDecodificado) {
     capturedInfo.textContent = "";
     enviarVerificacao();
   }
+}
+
+function continuarParaEquipamento() {
+  clientInfoPanel.hidden = true;
+  scanArea.hidden = false;
+  marcarPasso(2);
+  stageLabel.textContent = "Agora escaneie o código do equipamento";
+  iniciarLeitura();
 }
 
 async function enviarVerificacao() {
@@ -116,11 +127,13 @@ function reiniciar() {
   marcarPasso(1);
   stageLabel.textContent = "Escaneie o código do cliente";
   capturedInfo.textContent = "";
+  clientInfoPanel.hidden = true;
   resultArea.hidden = true;
   scanArea.hidden = false;
   iniciarLeitura();
 }
 
+continueBtn.addEventListener("click", continuarParaEquipamento);
 restartBtn.addEventListener("click", reiniciar);
 
 marcarPasso(1);
