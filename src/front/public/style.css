@@ -268,3 +268,11 @@ button.ghost:hover { border-color: var(--amber); }
   word-break: break-all;
   margin-top: 8px;
 }
+#clientInfoText {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--paper);
+  opacity: 1;
+  font-family: var(--mono);
+  letter-spacing: 0.02em;
+}
