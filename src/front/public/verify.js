@@ -49,11 +49,20 @@ async function pararLeitura() {
 
 async function onCodigoLido(textoDecodificado) {
   if (clientToken === null) {
-    clientToken = textoDecodificado;
+    let dadosCliente;
+    try {
+      dadosCliente = JSON.parse(textoDecodificado);
+    } catch (erro) {
+      capturedInfo.textContent = "QR code do cliente inválido.";
+      return;
+    }
+
+    clientToken = dadosCliente.token;
     await pararLeitura();
     marcarPasso(2);
     stageLabel.textContent = "Agora escaneie o código do equipamento";
-    capturedInfo.textContent = "Cliente capturado: " + clientToken;
+    capturedInfo.textContent =
+      dadosCliente.type + " — " + dadosCliente.brand + " — " + dadosCliente.color;
     iniciarLeitura();
     return;
   }

@@ -1,4 +1,7 @@
 const orderInput = document.getElementById("orderNumber");
+const equipmentTypeInput = document.getElementById("equipmentType");
+const equipmentBrandInput = document.getElementById("equipmentBrand");
+const equipmentColorInput = document.getElementById("equipmentColor");
 const generateBtn = document.getElementById("generateBtn");
 const statusLine = document.getElementById("statusLine");
 const qrPair = document.getElementById("qrPair");
@@ -12,9 +15,17 @@ function setStatus(message, kind) {
 
 async function gerarCodigos() {
   const orderNumber = orderInput.value.trim();
+  const equipmentType = equipmentTypeInput.value.trim();
+  const equipmentBrand = equipmentBrandInput.value.trim();
+  const equipmentColor = equipmentColorInput.value.trim();
 
   if (orderNumber.length === 0) {
     setStatus("Digite o número da ordem de serviço.", "err");
+    return;
+  }
+
+  if (equipmentType.length === 0 || equipmentBrand.length === 0 || equipmentColor.length === 0) {
+    setStatus("Preencha tipo, marca e cor do equipamento.", "err");
     return;
   }
 
@@ -26,7 +37,7 @@ async function gerarCodigos() {
     const response = await fetch("/pickup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ orderNumber })
+      body: JSON.stringify({ orderNumber, equipmentType, equipmentBrand, equipmentColor })
     });
 
     const data = await response.json();
