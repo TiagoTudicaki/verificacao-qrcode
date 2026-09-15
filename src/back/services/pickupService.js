@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 const qrcode = require("qrcode");
 
 const pickupService = {
-  async create(orderNumber) {
+  async create(orderNumber, equipmentType, equipmentBrand, equipmentColor) {
     if (typeof orderNumber != "string") {
       throw new Error("O numero da ordem tem que ser texto");
     }
@@ -18,10 +18,44 @@ const pickupService = {
       throw new Error("O campo numero da ordem deve possuir apenas numeros");
     }
 
+    if (typeof equipmentType != "string" || equipmentType.trim() == "") {
+      throw new Error("O tipo do equipamento deve ser texto e não pode ser vazio");
+    }
+
+    if (typeof equipmentBrand != "string" || equipmentBrand.trim() == "") {
+      throw new Error("A marca do equipamento deve ser texto e não pode ser vazia");
+    }
+
+    if (typeof equipmentColor != "string" || equipmentColor.trim() == "") {
+      throw new Error("A cor do equipamento deve ser texto e não pode ser vazia");
+    }
+
+    const isOnlyNumbers = /^[0-9]+$/;
+
+    if (isOnlyNumbers.test(equipmentType)) {
+      throw new Error("O tipo do equipamento não pode ser apenas números");
+    }
+
+    if (isOnlyNumbers.test(equipmentBrand)) {
+      throw new Error("A marca do equipamento não pode ser apenas números");
+    }
+
+    if (isOnlyNumbers.test(equipmentColor)) {
+      throw new Error("A cor do equipamento não pode ser apenas números");
+    }
+
     const clientToken = uuidv4();
     const equipmentToken = uuidv4();
 
-    const clientQrCode = await qrcode.toDataURL(clientToken);
+    const clientQrContent = JSON.stringify({
+      token: clientToken,
+      type: equipmentType,
+      brand: equipmentBrand,
+      color: equipmentColor,
+
+    });
+
+    const clientQrCode = await qrcode.toDataURL(clientQrContent);
     const equipmentQrCode = await qrcode.toDataURL(equipmentToken);
 
     await pickupModel.create(orderNumber, clientToken, equipmentToken);
